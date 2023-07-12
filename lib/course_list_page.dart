@@ -231,7 +231,6 @@ class AttendanceTablePage extends StatefulWidget {
   @override
   _AttendanceTablePageState createState() => _AttendanceTablePageState();
 }
-
 class _AttendanceTablePageState extends State<AttendanceTablePage> {
   List<Map<String, dynamic>> attendanceEntries = [
     {'Attendance Date': '2023-06-10', 'Attendance Time': '09:00 AM', 'Status': '✔️'},
@@ -696,10 +695,4 @@ class CourseListPage extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: CourseListPage(),
-  ));
 }
