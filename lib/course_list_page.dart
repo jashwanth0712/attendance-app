@@ -407,7 +407,7 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
                         value: showWarningEntries,
                         onChanged: (value) {
                           setState(() {
-                            showWarningEntries = value ?? false;
+                            showWarningEntries = value;
                           });
                         },
                       ),
