@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:attandance_viewer/api/Authentication.dart';
-import 'package:attandance_viewer/parents_view.dart';
+import 'package:attandance_viewer/Pages/parents_view.dart';
 import 'package:attandance_viewer/constants/ThemeData.dart';
-import 'package:open_mail_app/open_mail_app.dart';
-
+import 'package:attandance_viewer/utils/secure_storage_utils.dart';
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -45,6 +44,11 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     if (success) {
+      // Function to retrieve values from shared preferences
+      setValueInSecureStorage("username", username);
+      setValueInSecureStorage("password", password);
+      setValueInSecureStorage("role", "parent");
+      print("Password is : "+password);
       // Navigate to home page
       Navigator.push(
         context,
@@ -55,33 +59,6 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-  void launchForgotPasswordEmail() async {
-    EmailContent email = EmailContent(
-      to: [
-        'user@domain.com',
-      ],
-      subject: 'Hello!',
-      body: 'How are you doing?',
-      cc: ['user2@domain.com', 'user3@domain.com'],
-      bcc: ['boss@domain.com'],
-    );
-
-    OpenMailAppResult result =
-    await OpenMailApp.composeNewEmailInMailApp(
-        nativePickerTitle: 'Select email app to compose',
-        emailContent: email);
-    if (!result.didOpen && !result.canOpen) {
-      showNoMailAppsDialog(context);
-    } else if (!result.didOpen && result.canOpen) {
-      showDialog(
-        context: context,
-        builder: (_) => MailAppPickerDialog(
-          mailApps: result.options,
-          emailContent: email,
-        ),
-      );
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
               if (isLoading) CircularProgressIndicator(),
               SizedBox(height: 16.0),
               TextButton(
-                onPressed: launchForgotPasswordEmail,
+                onPressed: (){},
                 child: Text(
                   'Forgot Password?',
                   style: TextStyle(

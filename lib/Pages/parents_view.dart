@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'dart:developer';
-import "course_list_page.dart";
+import '../course_list_page.dart';
 import "package:attandance_viewer/Pages/DateWiseAttendanceTable.dart";
 
 class HeatMapCalendarExample extends StatefulWidget {

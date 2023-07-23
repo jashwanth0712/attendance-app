@@ -35,13 +35,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_heatmap_calendar: ^1.0.5
   http: ^0.13.6
-  url_launcher: ^6.1.11
-  mailer: ^5.0.0
-  open_mail_app: ^0.4.5
-  sqflite: ^2.2.8+4
-  path_provider: ^2.0.15
-  shared_preferences: ^2.0.8
-  flutter_local_notifications: ^15.1.0+1
+  flutter_secure_storage: ^8.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
