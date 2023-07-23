@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'dart:developer';
 import "course_list_page.dart";
+import "package:attandance_viewer/Pages/DateWiseAttendanceTable.dart";
 
 class HeatMapCalendarExample extends StatefulWidget {
   const HeatMapCalendarExample({Key? key}) : super(key: key);
@@ -102,7 +103,10 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CourseListPage(),
+                        builder: (context) => DateWiseAttendanceTable(
+                          email: "example@example.com",
+                          selectedDate: DateTime.now(),
+                        ),
                       ),
                     );
                   },
@@ -125,7 +129,10 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CourseListPage(),
+                          builder: (context) => DateWiseAttendanceTable(
+                            email: "example@exaple.com",
+                            selectedDate: value,
+                          ),
                         ),
                       );
                     },
