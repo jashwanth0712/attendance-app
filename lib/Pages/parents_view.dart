@@ -214,6 +214,8 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+      
       onPressed: () {
         setValueInSecureStorage("username", "");
         setValueInSecureStorage("password", "");
@@ -225,7 +227,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
         )
         );
       },
-      child :  Icon(Icons.logout, color: Colors.white),
+      child :  Icon(Icons.logout, color: Color(0xFF285190),),
 
       ),
     );

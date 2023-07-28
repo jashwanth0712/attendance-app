@@ -23,31 +23,32 @@ class Authentication {
           var data = jsonResponse['attendance'];
           // Process the response data here
           print('Login successful. Response: $data');
-          _showSnackBar(context, 'Login successful');
+          _showSnackBar(context, 'Login successful',Colors.green);
           return true;
         } else {
           // Login failed (wrong credentials)
           print('Wrong credentials');
-          _showSnackBar(context, 'Wrong credentials');
+          _showSnackBar(context, 'Wrong credentials',Colors.red);
           return false;
         }
       } else {
         // Login failed (server error)
         print('Login failed with status: ${response.statusCode}.');
-        _showSnackBar(context, 'Server error');
+        _showSnackBar(context, 'Server error',Colors.red);
         return false;
       }
     } catch (e) {
       // Error occurred
       print('Error: $e');
-      _showSnackBar(context, 'Error occurred');
+      _showSnackBar(context, 'Error occurred',Colors.red);
       return false;
     }
   }
 
   // Helper method to show the snack bar
-  static void _showSnackBar(BuildContext context, String message) {
+  static void _showSnackBar(BuildContext context, String message,Color backgroundColor) {
     final snackBar = SnackBar(
+      backgroundColor: backgroundColor,
       content: Text(message),
       duration: Duration(seconds: 3), // Adjust the duration as needed
     );
