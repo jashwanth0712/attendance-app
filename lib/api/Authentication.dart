@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:attandance_viewer/utils/secure_storage_utils.dart';
+
 class Authentication {
   static Future<bool> login(String username, String password, BuildContext context) async {
     print("Login pressed");
@@ -23,6 +25,8 @@ class Authentication {
           var data = jsonResponse['attendance'];
           // Process the response data here
           print('Login successful. Response: $data');
+          setDataValueInSecureStorage("data", data);
+
           _showSnackBar(context, 'Login successful',Colors.green);
           return true;
         } else {

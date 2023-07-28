@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:attandance_viewer/utils/secure_storage_utils.dart';
+import 'package:intl/intl.dart';
 
 class CourseCard extends StatelessWidget {
   final int serialNumber;
@@ -232,6 +234,16 @@ class AttendanceTablePage extends StatefulWidget {
   _AttendanceTablePageState createState() => _AttendanceTablePageState();
 }
 class _AttendanceTablePageState extends State<AttendanceTablePage> {
+
+  String getSymbolForStudStatus(String studStatus) {
+    if (studStatus == '1') {
+      return '✔️';
+    } else if (studStatus == '0') {
+      return '✖️';
+    } else {
+      return '⚠️';
+    }
+  }
   List<Map<String, dynamic>> attendanceEntries = [
     {'Attendance Date': '2023-06-10', 'Attendance Time': '09:00 AM', 'Status': '✔️'},
     {'Attendance Date': '2023-06-11', 'Attendance Time': '10:30 AM', 'Status': '❌'},
@@ -248,6 +260,53 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
   bool showFilterOptions = false;
   bool isFilterApplied = false;
 
+  DateTime parseDate(String dateStr) {
+    // Split the date string into day, month, and year components
+    List<String> dateComponents = dateStr.split('-');
+    int day = int.parse(dateComponents[0]);
+    int month = int.parse(dateComponents[1]);
+    int year = int.parse(dateComponents[2]);
+
+    // Create and return a DateTime object
+    return DateTime(year, month, day);
+  }
+  List<Map<String, dynamic>> filterDataByCourseID(
+      List<Map<String, dynamic>> data, String desiredCourseID) {
+    List<Map<String, dynamic>> filteredData = [];
+    print("running courseid "+desiredCourseID);
+    for (var entry in data) {
+      if (entry["CourseID"] == desiredCourseID) {
+        print(entry["CourseID"]);
+        Map<String, dynamic> filteredEntry = {
+          "Attendance Date": entry["AttDate"],
+          "Attendance Date":  DateFormat('yyyy-MM-dd').format(parseDate(entry['AttDate'])),
+          "Attendance Time": entry["AttTime"],
+          "Status":getSymbolForStudStatus(entry["StudStatus"]),
+        };
+        print(filteredEntry );
+        filteredData.add(filteredEntry);
+        print(filteredData);
+      }
+    }
+
+    return filteredData;
+  }
+  Future<List<Map<String, dynamic>>?> getDataFromSecureStorage() async {
+    print("it ran");
+    // Assuming the function to get data from secure storage is implemented as "getValueFromSecureStorage"
+    List<Map<String, dynamic>>? newData = await getDataValueFromSecureStorage("data");
+
+    // Specify the desired CourseID
+    String desiredCourseID = "CS3003";
+    print("came till if ");
+    print(newData);
+
+    if (newData != null) {
+      List<Map<String, dynamic>> filteredData = filterDataByCourseID(newData, desiredCourseID);
+      return filteredData;
+    }
+
+  }
   List<Map<String, dynamic>> getFilteredEntries() {
     if (!showCrossEntries && !showWarningEntries && startDate == null && endDate == null) {
       return attendanceEntries;
@@ -276,7 +335,20 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
       ).toList();
     }
   }
-
+  Future<void> _fetchData() async {
+    List<Map<String, dynamic>>? data = await getDataFromSecureStorage();
+    attendanceEntries = data!;
+    print("attendance entruies $attendanceEntries");
+    setState(() {
+      attendanceEntries;
+    });
+    print("Data from secure storage: $data");
+  }
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -319,7 +391,7 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
                             showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
-                              firstDate: DateTime(2023),
+                              firstDate: DateTime(2015),
                               lastDate: DateTime(2023, 12, 31),
                             ).then((value) {
                               setState(() {
@@ -344,7 +416,7 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
                             showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
-                              firstDate: DateTime(2023),
+                              firstDate: DateTime(2015),
                               lastDate: DateTime(2023, 12, 31),
                             ).then((value) {
                               setState(() {
@@ -420,7 +492,7 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
 
             Expanded(
               child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
                 child: DataTable(
                   columns: [
                     DataColumn(label: Text('Date')),
@@ -430,19 +502,18 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
                   rows: getFilteredEntries().map((entry) {
                     return DataRow(
                       cells: [
-                        DataCell(Text(entry['Attendance Date'])),
-                        DataCell(Text(entry['Attendance Time'])),
+                        DataCell(Text(entry?['Attendance Date'] ?? '')),
+                        DataCell(Text(entry?['Attendance Time'] ?? '')),
                         DataCell(
-                          entry['Status'] == '⚠️'
+                          entry?['Status'] == '⚠️'
                               ? Icon(Icons.warning, color: Colors.orange)
                               : Text(
-                            entry['Status'],
+                            entry?['Status'] ?? '',
                             style: TextStyle(
-                              color: entry['Status'] == '✔️' ? Colors.green : Colors.red,
+                              color: entry?['Status'] == '✔️' ? Colors.green : Colors.red,
                             ),
                           ),
                         ),
-
                       ],
                     );
                   }).toList(),
