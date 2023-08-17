@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:attandance_viewer/utils/secure_storage_utils.dart';
 import 'package:intl/intl.dart';
-
+import 'AttendanceTablePage.dart';
 class CourseCard extends StatelessWidget {
   final int serialNumber;
   final String courseId;
@@ -181,41 +181,157 @@ class CourseDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'S.No: $serialNumber',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Table(
+              columnWidths: {
+                0: FlexColumnWidth(5), // S.No column width
+                1: FlexColumnWidth(5), // Data column width
+              },
+              children: [
+                // TableRow(
+                //   children: [
+                //     TableCell(
+                //       child: Text(
+                //         'S.No:',
+                //         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                //       ),
+                //     ),
+                //     TableCell(
+                //       child: Text(
+                //         '$serialNumber',
+                //         style: TextStyle(fontSize: 18),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Course ID:'),
+                    ),
+                    TableCell(
+                      child: Text('$courseId'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Course Name:'),
+                    ),
+                    TableCell(
+                      child: Text('$courseName'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Faculty Name:'),
+                    ),
+                    TableCell(
+                      child: Text('$facultyName'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Total:'),
+                    ),
+                    TableCell(
+                      child: Text('$total'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Present:'),
+                    ),
+                    TableCell(
+                      child: Text('$present'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Absent:'),
+                    ),
+                    TableCell(
+                      child: Text('$absent'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('No Class:'),
+                    ),
+                    TableCell(
+                      child: Text('$noClass'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Provisional Approved Leave*:'),
+                    ),
+                    TableCell(
+                      child: Text('$provisionalApprovedLeave'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Present Percentage:'),
+                    ),
+                    TableCell(
+                      child: Text('$presentPercentage%'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Absent Percentage:'),
+                    ),
+                    TableCell(
+                      child: Text('$absentPercentage%'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Approved Leave Percentage*:'),
+                    ),
+                    TableCell(
+                      child: Text('$approvedLeavePercentage%'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text('Overall Percentage:'),
+                    ),
+                    TableCell(
+                      child: Text('$overallPercentage%'),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            SizedBox(height: 8),
-            Text('Course ID: $courseId'),
-            SizedBox(height: 8),
-            Text('Course Name: $courseName'),
-            SizedBox(height: 8),
-            Text('Faculty Name: $facultyName'),
-            SizedBox(height: 8),
-            Text('Total: $total'),
-            SizedBox(height: 8),
-            Text('Present: $present'),
-            SizedBox(height: 8),
-            Text('Absent: $absent'),
-            SizedBox(height: 8),
-            Text('No Class: $noClass'),
-            SizedBox(height: 8),
-            Text('Provisional Approved Leave*: $provisionalApprovedLeave'),
-            SizedBox(height: 8),
-            Text('Present Percentage: $presentPercentage%'),
-            SizedBox(height: 8),
-            Text('Absent Percentage: $absentPercentage%'),
-            SizedBox(height: 8),
-            Text('Approved Leave Percentage*: $approvedLeavePercentage%'),
-            SizedBox(height: 8),
-            Text('Overall Percentage: $overallPercentage%'),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AttendanceTablePage(),
+                    builder: (context) => AttendanceTablePage(courseId: courseId,context: context),
                   ),
                 );
               },
@@ -230,6 +346,13 @@ class CourseDetailsPage extends StatelessWidget {
 
 
 class AttendanceTablePage extends StatefulWidget {
+  final String courseId; // Add the courseId parameter to the constructor
+  final BuildContext context; // Add the BuildContext parameter
+
+  AttendanceTablePage({
+    required this.courseId,
+    required this.context, // Pass the BuildContext as a required parameter
+  });
   @override
   _AttendanceTablePageState createState() => _AttendanceTablePageState();
 }
@@ -299,8 +422,6 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
     // Specify the desired CourseID
     String desiredCourseID = "CS3003";
     print("came till if ");
-    print(newData);
-
     if (newData != null) {
       List<Map<String, dynamic>> filteredData = filterDataByCourseID(newData, desiredCourseID);
       return filteredData;
@@ -547,7 +668,7 @@ class CourseListPage extends StatelessWidget {
     },
     {
       "S.No": 2,
-      "Course ID": "CS2012",
+      "Course ID": "CS3006",
       "Course Name": "Artificial Intelligence",
       "Faculty Name": "Dr. Ram Prasad Padhy",
       "Total": 58,
@@ -563,7 +684,7 @@ class CourseListPage extends StatelessWidget {
     },
     {
       "S.No": 3,
-      "Course ID": "CS5102",
+      "Course ID": "CS3006",
       "Course Name": "Digital Image Processing",
       "Faculty Name": "Dr Masilamani V",
       "Total": 44,
@@ -579,7 +700,7 @@ class CourseListPage extends StatelessWidget {
     },
     {
       "S.No": 4,
-      "Course ID": "CS5104",
+      "Course ID": "HS3000",
       "Course Name": "Introduction to Biometrics",
       "Faculty Name": "Dr. Rahul Raman",
       "Total": 40,
@@ -595,7 +716,7 @@ class CourseListPage extends StatelessWidget {
     },
     {
       "S.No": 5,
-      "Course ID": "DS3001",
+      "Course ID": "HS3000",
       "Course Name": "Prototyping and Testing",
       "Faculty Name": "Dr. Karthik.C",
       "Total": 16,
@@ -611,7 +732,7 @@ class CourseListPage extends StatelessWidget {
     },
     {
       "S.No": 6,
-      "Course ID": "DS5011",
+      "Course ID": "HS3000",
       "Course Name": "Interaction Design (UX/UI)",
       "Faculty Name": "Mr. VSS Iyer",
       "Total": 14,

@@ -30,6 +30,12 @@ class _DateWiseAttendanceTableState extends State<DateWiseAttendanceTable> {
               "Selected Date: ${widget.selectedDate.toString()}",
               style: TextStyle(fontSize: 18),
             ),
+
+            SizedBox(height: 16),
+            Text(
+              "Attendance of selected date ",
+              style: TextStyle(fontSize: 18),
+            ),
           ],
         ),
       ),

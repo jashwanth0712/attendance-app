@@ -6,7 +6,7 @@ import 'dart:developer';
 import '../course_list_page.dart';
 import "package:attandance_viewer/Pages/DateWiseAttendanceTable.dart";
 import 'package:attandance_viewer/utils/secure_storage_utils.dart';
-
+import '../AttendanceTablePage.dart';
 
 class HeatMapCalendarExample extends StatefulWidget {
   const HeatMapCalendarExample({Key? key}) : super(key: key);
