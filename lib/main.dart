@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'components/CourseList.dart';
 import 'course_list_page.dart';
 import 'Pages/parents_view.dart';
 import 'Pages/Login.dart';

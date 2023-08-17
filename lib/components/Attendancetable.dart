@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:attandance_viewer/utils/secure_storage_utils.dart';
+
+import '../utils/secure_storage_utils.dart';
 
 class AttendanceTablePage extends StatefulWidget {
   final String courseId; // Add the courseId parameter to the constructor
