@@ -77,6 +77,7 @@ class CourseCard extends StatelessWidget {
               Text(
                 'Course ID: ${courseId.length > 9 ? '${courseId.substring(0, 3)}..${courseId.substring(courseId.length - 3)}' : courseId}',
               ),
+
               SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -86,45 +87,11 @@ class CourseCard extends StatelessWidget {
                     style: TextStyle(
                       color: attendanceColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 40,
                     ),
                   ),
 
 
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        '$present',
-                      ),
-                      Text(
-                        'present',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        '$absent',
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                      ),
-                      Text(
-                        'absent',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ],
-                  )
                 ],
               ),
             ],
@@ -187,22 +154,6 @@ class CourseDetailsPage extends StatelessWidget {
                 1: FlexColumnWidth(5), // Data column width
               },
               children: [
-                // TableRow(
-                //   children: [
-                //     TableCell(
-                //       child: Text(
-                //         'S.No:',
-                //         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                //       ),
-                //     ),
-                //     TableCell(
-                //       child: Text(
-                //         '$serialNumber',
-                //         style: TextStyle(fontSize: 18),
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 TableRow(
                   children: [
                     TableCell(
@@ -648,161 +599,41 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
   }
 }
 
-class CourseListPage extends StatelessWidget {
-  final List<Map<String, dynamic>> courses = [
-    {
-      "S.No": 1,
-      "Course ID": "BT5101",
-      "Course Name": "Biostatistics",
-      "Faculty Name": "Dr. Gowri. A",
-      "Total": 42,
-      "Present": 38,
-      "Absent": 4,
-      "No Class": 0,
-      "Provisional Approved Leave*": 0,
-      "Present %": 90.48,
-      "Absent %": 9.52,
-      "Approved Leave %*": 0,
-      "Percentage": 91,
-      "View": ""
-    },
-    {
-      "S.No": 2,
-      "Course ID": "CS3006",
-      "Course Name": "Artificial Intelligence",
-      "Faculty Name": "Dr. Ram Prasad Padhy",
-      "Total": 58,
-      "Present": 50,
-      "Absent": 8,
-      "No Class": 0,
-      "Provisional Approved Leave*": 0,
-      "Present %": 86.21,
-      "Absent %": 13.79,
-      "Approved Leave %*": 0,
-      "Percentage": 87,
-      "View": ""
-    },
-    {
-      "S.No": 3,
-      "Course ID": "CS3006",
-      "Course Name": "Digital Image Processing",
-      "Faculty Name": "Dr Masilamani V",
-      "Total": 44,
-      "Present": 40,
-      "Absent": 4,
-      "No Class": 0,
-      "Provisional Approved Leave*": 0,
-      "Present %": 90.91,
-      "Absent %": 9.09,
-      "Approved Leave %*": 0,
-      "Percentage": 91,
-      "View": ""
-    },
-    {
-      "S.No": 4,
-      "Course ID": "HS3000",
-      "Course Name": "Introduction to Biometrics",
-      "Faculty Name": "Dr. Rahul Raman",
-      "Total": 40,
-      "Present": 36,
-      "Absent": 4,
-      "No Class": 0,
-      "Provisional Approved Leave*": 0,
-      "Present %": 90,
-      "Absent %": 10,
-      "Approved Leave %*": 0,
-      "Percentage": 90,
-      "View": ""
-    },
-    {
-      "S.No": 5,
-      "Course ID": "HS3000",
-      "Course Name": "Prototyping and Testing",
-      "Faculty Name": "Dr. Karthik.C",
-      "Total": 16,
-      "Present": 16,
-      "Absent": 0,
-      "No Class": 13,
-      "Provisional Approved Leave*": 0,
-      "Present %": 100,
-      "Absent %": 0,
-      "Approved Leave %*": 0,
-      "Percentage": 100,
-      "View": ""
-    },
-    {
-      "S.No": 6,
-      "Course ID": "HS3000",
-      "Course Name": "Interaction Design (UX/UI)",
-      "Faculty Name": "Mr. VSS Iyer",
-      "Total": 14,
-      "Present": 14,
-      "Absent": 0,
-      "No Class": 0,
-      "Provisional Approved Leave*": 0,
-      "Present %": 100,
-      "Absent %": 0,
-      "Approved Leave %*": 0,
-      "Percentage": 100,
-      "View": ""
-    },
-    {
-      "S.No": 7,
-      "Course ID": "HS3001",
-      "Course Name": "Professional Communication",
-      "Faculty Name": "Dr. Parvathy Das",
-      "Total": 20,
-      "Present": 19,
-      "Absent": 1,
-      "No Class": 20,
-      "Provisional Approved Leave*": 0,
-      "Present %": 95,
-      "Absent %": 5,
-      "Approved Leave %*": 0,
-      "Percentage": 95,
-      "View": ""
-    },
-    {
-      "S.No": 8,
-      "Course ID": "HS3002",
-      "Course Name": "Intellectual Property Rights",
-      "Faculty Name": "Dr. Jayachandra Bingi",
-      "Total": 0,
-      "Present": 0,
-      "Absent": 0,
-      "No Class": 0,
-      "Provisional Approved Leave*": 0,
-      "Present %": 0,
-      "Absent %": 0,
-      "Approved Leave %*": 0,
-      "Percentage": 0,
-      "View": ""
-    },
-    {
-      "S.No": 9,
-      "Course ID": "noc23-cs44",
-      "Course Name": "Ethical Hacking",
-      "Faculty Name": "Prof. Indranil Sengupta",
-      "Total": 0,
-      "Present": 0,
-      "Absent": 0,
-      "No Class": 0,
-      "Provisional Approved Leave*": 0,
-      "Present %": 0,
-      "Absent %": 0,
-      "Approved Leave %*": 0,
-      "Percentage": 0,
-      "View": ""
+class CourseListPage extends StatefulWidget {
+  @override
+  State<CourseListPage> createState() => _CourseListPageState();
+}
+
+class _CourseListPageState extends State<CourseListPage> {
+  List<Map<String, dynamic>> courses = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    List<Map<String, dynamic>>? newData =
+    await getDataValueFromSecureStorage("courses");
+    if (newData != null) {
+      setState(() {
+        courses = newData;
+        print("got it");
+        print(newData);
+      });
     }
-  ]
-;
+  }
+
+
   int threshold=88;
+
   @override
   Widget build(BuildContext context) {
-    int belowThresholdCount = courses
-        .where((course) => course['Percentage'] < threshold)
-        .toList()
-        .length;
+    // int belowThresholdCount = courses
+    //     .where((course) => course['Percentage'] < threshold)
+    //     .toList()
+    //     .length;
+    int belowThresholdCount = 5;
 
     return Scaffold(
       appBar: AppBar(
@@ -848,19 +679,19 @@ class CourseListPage extends StatelessWidget {
               itemCount: courses.length,
               itemBuilder: (context, index) {
                 final course = courses[index];
-                final serialNumber = course['S.No'];
-                final courseId = course['Course ID'];
-                final courseName = course['Course Name'];
-                final facultyName = course['Faculty Name'];
-                final total = course['Total'];
-                final present = course['Present'];
-                final absent = course['Absent'];
-                final noClass = course['No Class'];
-                final provisionalApprovedLeave = course['Provisional Approved Leave*'];
-                final presentPercentage = course['Present %'].toDouble();
-                final absentPercentage = course['Absent %'].toDouble();
-                final approvedLeavePercentage = course['Approved Leave %*'];
-                final overallPercentage = course['Percentage'];
+                final serialNumber = 0;
+                final courseId = course['course_code'];
+                final courseName = course['course_name'];
+                final facultyName = course['faculty'];
+                final total = 0;
+                final present = 0;
+                final absent = 0;
+                final noClass = 0;
+                final provisionalApprovedLeave = 0;
+                final presentPercentage = 0.0;
+                final absentPercentage = 0.0;
+                final approvedLeavePercentage = 0;
+                final overallPercentage = 95;
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),

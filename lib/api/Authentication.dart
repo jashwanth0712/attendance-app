@@ -50,6 +50,7 @@ class Authentication {
     }
   }
   static Future<bool> getcourses(String username, String password, BuildContext context) async {
+    print("get course ran");
     var url = Uri.parse(
         'https://www.iiitdm.ac.in/Profile/automation/focus/attendance_app_endpoints.php'); // Replace with your login API endpoint
     try {
@@ -70,7 +71,7 @@ class Authentication {
           // Login successful
           var data = jsonResponse['attendance'];
           // Process the response data here
-          print('Login successful. Response: $data');
+          print('course response: $data');
           setDataValueInSecureStorage("courses", data);
           print(data);
           _showSnackBar(context, 'Login successful',Colors.green);
@@ -103,7 +104,7 @@ class Authentication {
         body: {
           'username': username,
           'password': password,
-          'required' : 'attendance',
+          'required' : 'leave',
         },
       );
       if (response.statusCode == 200) {
@@ -118,12 +119,10 @@ class Authentication {
           print('Login successful. Response: $data');
           setDataValueInSecureStorage("leaves", data);
           print(data);
-          _showSnackBar(context, 'Login successful',Colors.green);
           return true;
         } else {
           // Login failed (wrong credentials)
           print('Wrong credentials');
-          _showSnackBar(context, 'Wrong credentials',Colors.red);
           return false;
         }
       } else {

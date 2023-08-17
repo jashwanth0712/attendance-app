@@ -32,12 +32,25 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> login() async {
     String username = usernameController.text;
     String password = passwordController.text;
-    // Obtain shared preferences.
+
     setState(() {
       isLoading = true;
     });
 
-    bool success = await Authentication.login(username, password,context);
+    // Start all the asynchronous tasks concurrently
+    List<Future<bool>> futures = [
+      Authentication.login(username, password, context),
+      Authentication.getcourses(username, password, context),
+      Authentication.getleaves(username, password, context),
+    ];
+
+    // Wait for all tasks to complete
+    List<bool> results = await Future.wait(futures);
+
+    // You now have the results of all three tasks in the 'results' list
+    bool success = results[0];
+    bool courses = results[1];
+    bool leaves = results[2];
 
     setState(() {
       isLoading = false;
