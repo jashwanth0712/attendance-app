@@ -17,8 +17,8 @@ class _CourseListPageState extends State<CourseListPage> {
   @override
   void initState() {
     super.initState();
-    fetchData();
     fetchAttendanceData();
+    fetchData();
   }
   int getNumberOfDaysWithStudStatus1(List<Map<String, dynamic>> attendanceData, String courseId,String status) {
     final List<AttendanceRecord> attendanceRecords =
@@ -66,16 +66,26 @@ class _CourseListPageState extends State<CourseListPage> {
       });
     }
   }
+  int countCoursesBelowThreshold(List<Map<String, dynamic>> courses, double threshold) {
+    int belowThresholdCount = 0;
+    print("in coutn per $courses");
+    for (var course in courses) {
+      course['total']= getTotalNumberOfDays(attendancedata, course['course_code']);
+      course['present']=getNumberOfDaysWithStudStatus1(attendancedata, course['course_code'],"1");
+      course['absent']=getNumberOfDaysWithStudStatus1(attendancedata, course['course_code'],"0");
+      double overallPercentage = course['total'] != 0 ? (course['present']/ course['total'] * 100) : 0;
+      if (overallPercentage < threshold) {
+        belowThresholdCount++;
+      }
+    }
 
-  int threshold=88;
+    return belowThresholdCount;
+  }
 
   @override
   Widget build(BuildContext context) {
-    // int belowThresholdCount = courses
-    //     .where((course) => course['Percentage'] < threshold)
-    //     .toList()
-    //     .length;
-    int belowThresholdCount = 5;
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -88,7 +98,7 @@ class _CourseListPageState extends State<CourseListPage> {
       ),
       body: Column(
         children: [
-          (belowThresholdCount == 0) ? Container() : Container(
+          (countCoursesBelowThreshold(courses, 88.0) == 0) ? Container() : Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.redAccent,
@@ -102,7 +112,7 @@ class _CourseListPageState extends State<CourseListPage> {
               ],
             ),
             child:Text(
-              '${belowThresholdCount} ${belowThresholdCount == 1 ? 'subject has' : 'subjects have'} ${threshold}% below attendance',
+              '${countCoursesBelowThreshold(courses, 88.0)} ${countCoursesBelowThreshold(courses, 88.0) == 1 ? 'subject has' : 'subjects have'} ${88}% below attendance',
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -120,20 +130,24 @@ class _CourseListPageState extends State<CourseListPage> {
               ),
               itemCount: courses.length,
               itemBuilder: (context, index) {
+                courses[index]['total']= getTotalNumberOfDays(attendancedata, courses[index]['course_code']);
+                courses[index]['present']=getNumberOfDaysWithStudStatus1(attendancedata, courses[index]['course_code'],"1");
+                courses[index]['absent']=getNumberOfDaysWithStudStatus1(attendancedata, courses[index]['course_code'],"0");
+                courses[index]['overallPercentage']=courses[index]['total'] != 0 ? (courses[index]['present']/ courses[index]['total'] * 100).toInt() : 0;
                 final course = courses[index];
                 final serialNumber = 0;
                 final courseId = course['course_code'];
                 final courseName = course['course_name'];
                 final facultyName = course['faculty'];
-                final total = getTotalNumberOfDays(attendancedata, course['course_code']);
-                final present = getNumberOfDaysWithStudStatus1(attendancedata, course['course_code'],"1");
-                final absent = getNumberOfDaysWithStudStatus1(attendancedata, course['course_code'],"0");
+                final total = course['total'];
+                final present = course['present'];
+                final absent = course['absent'];
                 final noClass = 0;
                 final provisionalApprovedLeave = 0;
                 final presentPercentage = total != 0.0 ? (present / total * 100) : 0.0;
                 final absentPercentage = total != 0.0 ? (absent / total * 100) : 0.0;
                 final approvedLeavePercentage = 0;
-                final overallPercentage = total != 0 ? (present / total * 100).toInt() : 0;
+                final overallPercentage = course['overallPercentage'];
 
 
 
