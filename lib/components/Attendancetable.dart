@@ -74,13 +74,11 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
     return filteredData;
   }
   Future<List<Map<String, dynamic>>?> getDataFromSecureStorage() async {
-    print("it ran");
     // Assuming the function to get data from secure storage is implemented as "getValueFromSecureStorage"
     List<Map<String, dynamic>>? newData = await getDataValueFromSecureStorage("data");
 
     // Specify the desired CourseID
     String desiredCourseID = widget.courseId;
-    print("came till if ");
     if (newData != null) {
       List<Map<String, dynamic>> filteredData = filterDataByCourseID(newData, desiredCourseID);
       return filteredData;
@@ -273,7 +271,9 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: DataTable(
+                child:
+
+                DataTable(
                   columns: [
                     DataColumn(label: Text('Date')),
                     DataColumn(label: Text('Time')),

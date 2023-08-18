@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:attandance_viewer/utils/secure_storage_utils.dart';
+import 'package:lottie/lottie.dart';
 
 class AttendanceTablePage extends StatefulWidget {
   final String courseId; // Add the courseId parameter to the constructor
@@ -43,9 +44,9 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
   DateTime parseDate(String dateStr) {
     // Split the date string into day, month, and year components
     List<String> dateComponents = dateStr.split('-');
-    int day = int.parse(dateComponents[0]);
+    int day = int.parse(dateComponents[2]);
     int month = int.parse(dateComponents[1]);
-    int year = int.parse(dateComponents[2]);
+    int year = int.parse(dateComponents[0]);
 
     // Create and return a DateTime object
     return DateTime(year, month, day);
@@ -267,8 +268,7 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
               ),
             ),
             SizedBox(height: 16.0),
-
-            Expanded(
+            if (getFilteredEntries().length>0) Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: DataTable(
@@ -297,7 +297,17 @@ class _AttendanceTablePageState extends State<AttendanceTablePage> {
                   }).toList(),
                 ),
               ),
+            ) else Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset('images/animation_llfik4m2.json'), // Replace with your animation path
+                  SizedBox(height: 16.0),
+                  Text('No records found'),
+                ],
+              ),
             ),
+
           ],
         ),
       ),
