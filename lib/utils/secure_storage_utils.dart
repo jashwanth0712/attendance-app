@@ -29,7 +29,7 @@ Future<List<Map<String, dynamic>>?> getDataValueFromSecureStorage(String key) as
 Future<void> setValueInSecureStorage(String key, String value) async {
   try {
     await _storage.write(key: key, value: value);
-    print('Value saved to secure storage successfully.');
+    print('Value $key and $value saved to secure storage successfully.');
   } catch (e) {
     print('Error while saving to secure storage: $e');
   }

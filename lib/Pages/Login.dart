@@ -3,6 +3,7 @@ import 'package:attandance_viewer/api/Authentication.dart';
 import 'package:attandance_viewer/Pages/parents_view.dart';
 import 'package:attandance_viewer/constants/ThemeData.dart';
 import 'package:attandance_viewer/utils/secure_storage_utils.dart';
+import '../constants/TranslationConstants.dart';
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -14,6 +15,19 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
   bool isParentSelected = true;
   bool isStudentSelected = false;
+  String? storedLanguage="";
+  void initState() {
+    super.initState();
+    _checkAndSetDefaultLanguage();
+  }
+
+  Future<void> _checkAndSetDefaultLanguage() async {
+     storedLanguage = await getValueFromSecureStorage("language");
+    if (storedLanguage == null) {
+      setValueInSecureStorage("language", "english");
+      print("language is english");
+    }
+  }
 
   void selectParent() {
     setState(() {
@@ -70,13 +84,46 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _showLanguageSnackbar(String language) {
+    setValueInSecureStorage("language", language);
+    print("the stored data is $storedLanguage");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Selected language: $language'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 
+  void _selectLanguage(String language) {
+    // Set logic here to handle language selection.
+    _showLanguageSnackbar(language);
+    setState(() {
+      storedLanguage=language;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
+        actions: [
+          PopupMenuButton(
+            onSelected: _selectLanguage,
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(value: 'english', child: Text('English')),
+                PopupMenuItem(value: 'hindi', child: Text('हिन्दी')),
+                PopupMenuItem(value: 'tamil', child: Text('தமிழ்')),
+                PopupMenuItem(value: 'telugu', child: Text('తెలుగు')),
+                PopupMenuItem(value: 'malayalam', child: Text('മലയാളം')),
+                PopupMenuItem(value: 'kannada', child: Text('ಕನ್ನಡ')),
+                PopupMenuItem(value: 'marathi', child: Text('मराठी')),
+              ];
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -104,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                         horizontal: 16.0,
                       ),
                       child: Text(
-                        'Parent',
+                        TranslationConstants.translations["parent"]![storedLanguage]!,
                         style: TextStyle(
                           color: isParentSelected ? Colors.white : primaryColor,
                           fontSize: 18,
@@ -126,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                         horizontal: 16.0,
                       ),
                       child: Text(
-                        'Student',
+                        TranslationConstants.translations["student"]![storedLanguage]!,
                         style: TextStyle(
                           color: isStudentSelected ? Colors.white : primaryColor,
                           fontSize: 18,
@@ -142,20 +189,20 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(
                   controller: usernameController,
                   decoration: InputDecoration(
-                    labelText: 'Username',
+                    labelText: TranslationConstants.translations["username"]![storedLanguage],
                   ),
                 ),
                 TextField(
                   controller: passwordController,
                   decoration: InputDecoration(
-                    labelText: 'Password',
+                    labelText: TranslationConstants.translations["password"]![storedLanguage],
                   ),
                   obscureText: true,
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: isLoading ? null : login,
-                  child: Text('Log In'),
+                  child: Text(TranslationConstants.translations["login"]![storedLanguage]!),
                 ),
               ] else ...[
                 Text(
@@ -172,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
               TextButton(
                 onPressed: (){},
                 child: Text(
-                  'Forgot Password?',
+                  TranslationConstants.translations["forgot_password"]![storedLanguage]!+"?",
                   style: TextStyle(
                     color: primaryColor,
                     fontSize: 16,
