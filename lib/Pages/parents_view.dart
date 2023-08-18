@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'dart:developer';
 import '../components/CourseList.dart';
+import '../constants/TranslationConstants.dart';
 import '../course_list_page.dart';
 import "package:attandance_viewer/Pages/DateWiseAttendanceTable.dart";
 import 'package:attandance_viewer/utils/secure_storage_utils.dart';
@@ -23,6 +24,22 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
 
 
   bool isOpacityMode = true;
+  String? storedLanguage="english";
+  void initState() {
+    super.initState();
+    _checkAndSetDefaultLanguage();
+    fetchAttendanceData();
+
+  }
+
+  Future<void> _checkAndSetDefaultLanguage() async {
+    storedLanguage = await getValueFromSecureStorage("language");
+    print("recieved $storedLanguage");
+    if (storedLanguage == null) {
+      setValueInSecureStorage("language", "english");
+      print("language is english");
+    }
+  }
   Future<void> fetchAttendanceData() async {
     List<Map<String, dynamic>>? newData = await getDataValueFromSecureStorage("data");
     if (newData != null) {
@@ -61,10 +78,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
     }
   }
 
-  void initState() {
-    super.initState();
-    fetchAttendanceData();
-  }
+
   @override
   void dispose() {
     super.dispose();
@@ -89,17 +103,46 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
       ),
     );
   }
-
+  void _showLanguageSnackbar(String language) {
+    setValueInSecureStorage("language", language);
+    print("the stored data is $storedLanguage");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Selected language: $language'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+  void _selectLanguage(String language) {
+    // Set logic here to handle language selection.
+    _showLanguageSnackbar(language);
+    setState(() {
+      storedLanguage=language;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('parent view'),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 8.0),
             child: Image.asset(
                 'images/college_logo.png'), // Replace 'assets/college_logo.png' with your image path
+          ),
+          PopupMenuButton(
+            onSelected: _selectLanguage,
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(value: 'english', child: Text('English')),
+                PopupMenuItem(value: 'hindi', child: Text('हिन्दी')),
+                PopupMenuItem(value: 'tamil', child: Text('தமிழ்')),
+                PopupMenuItem(value: 'telugu', child: Text('తెలుగు')),
+                PopupMenuItem(value: 'malayalam', child: Text('മലയാളം')),
+                PopupMenuItem(value: 'kannada', child: Text('ಕನ್ನಡ')),
+                PopupMenuItem(value: 'marathi', child: Text('मराठी')),
+              ];
+            },
           ),
         ],
       ),
@@ -157,34 +200,35 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                 ),
               ),
               Card(
-                  margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                  elevation: 20,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        _buildLegendItem(Colors.white, 'Complete Present'),
-                        _buildLegendItem(Colors.red[100]!, 'Partial Absent'),
-                        _buildLegendItem(Colors.redAccent, 'Complete Absent'),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.info_outline, size: 16),
-                            SizedBox(width: 8),
-                            Text(
-                              'Click a date to view its attendance details.',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                              ),
+                margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                elevation: 20,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _buildLegendItem(Colors.white, 'Complete Present'),
+                      _buildLegendItem(Colors.red[100]!, 'Partial Absent'),
+                      _buildLegendItem(Colors.redAccent, 'Complete Absent'),
+                      SizedBox(height: 8),
+                      Wrap( // Wrap widget here
+                        alignment: WrapAlignment.center,
+                        children: [
+                          Icon(Icons.info_outline, size: 16),
+                          SizedBox(width: 8),
+                          Text(
+                            TranslationConstants.translations["click_a_date_to_view_attendance"]![storedLanguage!]!,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -208,7 +252,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                         Icon(Icons.calendar_today, color: Colors.white),
                         SizedBox(width: 10),
                         Text(
-                          "Subject wise attendance",
+                          TranslationConstants.translations["subject_wise_attendance"]![storedLanguage!]!,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

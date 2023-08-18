@@ -15,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
   bool isParentSelected = true;
   bool isStudentSelected = false;
-  String? storedLanguage="";
+  String? storedLanguage="english";
   void initState() {
     super.initState();
     _checkAndSetDefaultLanguage();
@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _checkAndSetDefaultLanguage() async {
      storedLanguage = await getValueFromSecureStorage("language");
+     print("recieved $storedLanguage");
     if (storedLanguage == null) {
       setValueInSecureStorage("language", "english");
       print("language is english");
@@ -125,7 +126,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: storedLanguage != null
+          ?  SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
@@ -151,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                         horizontal: 16.0,
                       ),
                       child: Text(
-                        TranslationConstants.translations["parent"]![storedLanguage]!,
+                        TranslationConstants.translations["parent"]![storedLanguage!]!,
                         style: TextStyle(
                           color: isParentSelected ? Colors.white : primaryColor,
                           fontSize: 18,
@@ -173,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                         horizontal: 16.0,
                       ),
                       child: Text(
-                        TranslationConstants.translations["student"]![storedLanguage]!,
+                        TranslationConstants.translations["student"]![storedLanguage!]!,
                         style: TextStyle(
                           color: isStudentSelected ? Colors.white : primaryColor,
                           fontSize: 18,
@@ -189,20 +191,20 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(
                   controller: usernameController,
                   decoration: InputDecoration(
-                    labelText: TranslationConstants.translations["username"]![storedLanguage],
+                    labelText: TranslationConstants.translations["username"]![storedLanguage!]!,
                   ),
                 ),
                 TextField(
                   controller: passwordController,
                   decoration: InputDecoration(
-                    labelText: TranslationConstants.translations["password"]![storedLanguage],
+                    labelText: TranslationConstants.translations["password"]![storedLanguage!]!,
                   ),
                   obscureText: true,
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: isLoading ? null : login,
-                  child: Text(TranslationConstants.translations["login"]![storedLanguage]!),
+                  child: Text(TranslationConstants.translations["login"]![storedLanguage!]!),
                 ),
               ] else ...[
                 Text(
@@ -219,7 +221,7 @@ class _LoginPageState extends State<LoginPage> {
               TextButton(
                 onPressed: (){},
                 child: Text(
-                  TranslationConstants.translations["forgot_password"]![storedLanguage]!+"?",
+                  TranslationConstants.translations["forgot_password"]![storedLanguage!]!+"?",
                   style: TextStyle(
                     color: primaryColor,
                     fontSize: 16,
@@ -236,7 +238,13 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
-      ),
+      )
+          : Center(child: Column(
+            children: [
+              CircularProgressIndicator(),
+              Container(child: Text(storedLanguage!),)
+            ],
+          )),
     );
   }
   void showNoMailAppsDialog(BuildContext context) {
