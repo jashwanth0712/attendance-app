@@ -80,7 +80,115 @@ class TranslationConstants {
       "hindi": "विषयवार हाजिरी",
       "marathi": "विषयआधारित हजर तपशिल",
       "kannada": "ವಿಷಯಾಧಾರಿತ ಹಾಜರಾತಿ"
-    }
+    },
+    "subjects_with_attendance_below_88": {
+      "english": "Subjects with attendance below 88%",
+      "telugu": "88% కంటే కమ్మిటీపై పాఠాలు",
+      "malayalam": "88% ക്കിടെ ഹാജരായിത്ത് അടിമയായ വിഷയങ്ങൾ",
+      "tamil": "88% க்கு கீழ் பாடங்கள்",
+      "hindi": "88% से कम हाजिरी वाले विषय",
+      "marathi": "88% पेक्षा कमी हजर असलेले विषय",
+      "kannada": "88% ಕ್ಕಿಂತ ಕಡಿಮೆ ಹಾಜರಿಕೆಯ ವಿಷಯಗಳು"
+    },
+    "course_name": {
+      "english": "Course Name:",
+      "telugu": "కోర్స్ పేరు:",
+      "malayalam": "കോഴ്സ് പേരു:",
+      "tamil": "பாடக்கோப்பு பெயர்:",
+      "hindi": "कोर्स का नाम:",
+      "marathi": "कोर्सचे नाव:",
+      "kannada": "ಕೋರ್ಸ್ ಹೆಸರು:"
+    },
+
+    "faculty_name": {
+      "english": "Faculty Name:",
+      "telugu": "ఫ్యాకల్టీ పేరు:",
+      "malayalam": "ഫാക്കൾട്ടി പേരു:",
+      "tamil": "கல்வி பெயர்:",
+      "hindi": "फैकल्टी का नाम:",
+      "marathi": "शिक्षकाचे नाव:",
+      "kannada": "ಶಿಕ್ಷಕರ ಹೆಸರು:"
+    },
+
+    "course_id": {
+      "english": "Course ID:",
+      "telugu": "కోర్స్ ID:",
+      "malayalam": "കോഴ്സ് ID:",
+      "tamil": "பாடத்திர ஐடி:",
+      "hindi": "कोर्स आईडी:",
+      "marathi": "कोर्स आयडी:",
+      "kannada": "ಕೋರ್ಸ್ ಐಡಿ:"
+    },
+
+    "overall_percentage": {
+      "english": "Overall Percentage:",
+      "telugu": "మొత్తం శాతం:",
+      "malayalam": "മൊത്തം ശതമാനം:",
+      "tamil": "மொத்த சதாந்திரம்:",
+      "hindi": "कुल प्रतिशत:",
+      "marathi": "एकूण प्रतिशत:",
+      "kannada": "ಒಟ್ಟು ಶಾತಂ:"
+    },
+
+    "approved_leave_percentage": {
+      "english": "Approved Leave Percentage*:",
+      "telugu": "ఆమోదించిన అవకాశ శాతం*:",
+      "malayalam": "അനുമതി ലഭിച്ച അവകാശ ശതമാന*:",
+      "tamil": "அங்கீகரிக்கப்பட்ட அனுமதி சதாந்திரம்*:",
+      "hindi": "मंजूर की गई अवकाश प्रतिशत*:",
+      "marathi": "मंजूर आलेली अवकाश प्रतिशत*:",
+      "kannada": "ಅನುಮೋದಿಸಿದ ರಜೆ ಶಾತಂ*:"
+    },
+
+    "absent_percentage": {
+      "english": "Absent Percentage:",
+      "telugu": "అనుపస్థితి శాతం:",
+      "malayalam": "അനുപസ്ഥിതി ശതമാനം:",
+      "tamil": "விலக்கு சதாந்திரம்:",
+      "hindi": "अनुपस्थिति प्रतिशत:",
+      "marathi": "गैरहाजर प्रतिशत:",
+      "kannada": "ಅನುಪಸ್ಥಿತಿ ಶಾತಂ:"
+    },
+
+    "present_percentage": {
+      "english": "Present Percentage:",
+      "telugu": "ఉపస్థితి శాతం:",
+      "malayalam": "ഹാജരായിത്ത് ശതമാനം:",
+      "tamil": "உபஸ்திதி சதாந்திரம்:",
+      "hindi": "हाजिरी प्रतिशत:",
+      "marathi": "हजर प्रतिशत:",
+      "kannada": "ಹಾಜರಾತಿ ಶಾತಂ:"
+    },
+
+    "days_with_no_class": {
+      "english": "Days with No Class:",
+      "telugu": "క్లాస్ లేని రోజులు:",
+      "malayalam": "ക്ലാസ് ഇല്ലാത്ത ദിവസങ്ങൾ:",
+      "tamil": "பாடம் இல்லாத நாட்கள்:",
+      "hindi": "कोई कक्षा नहीं थी दिन:",
+      "marathi": "कोणत्याही वर्ग नसलेले दिवस:",
+      "kannada": "ಯಾವ ವಿಷಯವೂ ಇಲ್ಲದ ದಿನಗಳು:"
+    },
+
+    "number_of_absents": {
+      "english": "Number of Absents:",
+      "telugu": "అనుపస్థితి సంఖ్య:",
+      "malayalam": "അനുപസ്ഥിതി എണ്ണം:",
+      "tamil": "விலக்கு எண்ணிக்கை:",
+      "hindi": "अनुपस्थिति संख्या:",
+      "marathi": "गैरहाजिरीची संख्या:",
+      "kannada": "ಅನುಪಸ್ಥಿತಿಯ ಸಂಖ್ಯೆ:"
+    },
+
+    "number_of_present": {
+      "english": "Number of Present:",
+      "telugu": "ఉపస్థితి సంఖ్య:",
+      "malayalam": "ഹാജരായിത്ത് എണ്ണം:",
+      "tamil": "உபஸ்திதி எண்ணிக்கை:",
+      "hindi": "हाजिरी संख्या:",
+      "marathi": "हजरीची संख्या:",
+      "kannada": "ಹಾಜರಿಕೆಯ ಸಂಖ್ಯೆ:"
+    },
 
   };
 }

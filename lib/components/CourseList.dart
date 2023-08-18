@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/AttendanceRecord.dart';
+import '../constants/TranslationConstants.dart';
 import '../utils/secure_storage_utils.dart';
 import 'CourseCard.dart';
 
@@ -14,11 +15,41 @@ class CourseListPage extends StatefulWidget {
 class _CourseListPageState extends State<CourseListPage> {
   List<Map<String, dynamic>> courses = [];
   List<Map<String, dynamic>> attendancedata = [];
+  String? storedLanguage="english";
+
+  Future<void> _checkAndSetDefaultLanguage() async {
+    storedLanguage = await getValueFromSecureStorage("language");
+    print("recieved $storedLanguage");
+    if (storedLanguage == null) {
+      setValueInSecureStorage("language", "english");
+      print("language is english");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     fetchAttendanceData();
+    _checkAndSetDefaultLanguage();
     fetchData();
+  }
+  void _showLanguageSnackbar(String language) {
+    setValueInSecureStorage("language", language);
+    print("the stored data is $storedLanguage");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Selected language: $language'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _selectLanguage(String language) {
+    // Set logic here to handle language selection.
+    _showLanguageSnackbar(language);
+    setState(() {
+      storedLanguage=language;
+    });
   }
   int getNumberOfDaysWithStudStatus1(List<Map<String, dynamic>> attendanceData, String courseId,String status) {
     final List<AttendanceRecord> attendanceRecords =
@@ -94,6 +125,20 @@ class _CourseListPageState extends State<CourseListPage> {
             padding: EdgeInsets.only(right: 8.0),
             child: Image.asset('images/college_logo.png'), // Replace 'assets/college_logo.png' with your image path
           ),
+          PopupMenuButton(
+            onSelected: _selectLanguage,
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(value: 'english', child: Text('English')),
+                PopupMenuItem(value: 'hindi', child: Text('हिन्दी')),
+                PopupMenuItem(value: 'tamil', child: Text('தமிழ்')),
+                PopupMenuItem(value: 'telugu', child: Text('తెలుగు')),
+                PopupMenuItem(value: 'malayalam', child: Text('മലയാളം')),
+                PopupMenuItem(value: 'kannada', child: Text('ಕನ್ನಡ')),
+                PopupMenuItem(value: 'marathi', child: Text('मराठी')),
+              ];
+            },
+          ),
         ],
       ),
       body: Column(
@@ -112,7 +157,7 @@ class _CourseListPageState extends State<CourseListPage> {
               ],
             ),
             child:Text(
-              '${countCoursesBelowThreshold(courses, 88.0)} ${countCoursesBelowThreshold(courses, 88.0) == 1 ? 'subject has' : 'subjects have'} ${88}% below attendance',
+              ' ${TranslationConstants.translations["subjects_with_attendance_below_88"]![storedLanguage!]!} => ${countCoursesBelowThreshold(courses, 88.0)}',
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
