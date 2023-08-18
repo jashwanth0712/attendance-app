@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/AttendanceRecord.dart';
 import '../utils/secure_storage_utils.dart';
 import 'CourseCard.dart';
 
@@ -12,12 +13,37 @@ class CourseListPage extends StatefulWidget {
 
 class _CourseListPageState extends State<CourseListPage> {
   List<Map<String, dynamic>> courses = [];
+  List<Map<String, dynamic>> attendancedata = [];
   @override
   void initState() {
     super.initState();
     fetchData();
+    fetchAttendanceData();
   }
+  int getNumberOfDaysWithStudStatus1(List<Map<String, dynamic>> attendanceData, String courseId,String status) {
+    final List<AttendanceRecord> attendanceRecords =
+    attendanceData.map((item) => AttendanceRecord.fromJson(item)).toList();
 
+    int numberOfDays = 0;
+    for (var record in attendanceRecords) {
+      if (record.courseId == courseId && record.studStatus == status) {
+        numberOfDays++;
+      }
+    }
+    return numberOfDays;
+  }
+  int getTotalNumberOfDays(List<Map<String, dynamic>> attendanceData, String courseId) {
+    final List<AttendanceRecord> attendanceRecords =
+    attendanceData.map((item) => AttendanceRecord.fromJson(item)).toList();
+
+    int numberOfDays = 0;
+    for (var record in attendanceRecords) {
+      if (record.courseId == courseId) {
+        numberOfDays++;
+      }
+    }
+    return numberOfDays;
+  }
   Future<void> fetchData() async {
     List<Map<String, dynamic>>? newData =
     await getDataValueFromSecureStorage("courses");
@@ -29,7 +55,17 @@ class _CourseListPageState extends State<CourseListPage> {
       });
     }
   }
-
+  Future<void> fetchAttendanceData() async {
+    List<Map<String, dynamic>>? newData =
+    await getDataValueFromSecureStorage("data");
+    if (newData != null) {
+      setState(() {
+        attendancedata = newData;
+        print("got attendancedata");
+        print(newData);
+      });
+    }
+  }
 
   int threshold=88;
 
@@ -89,15 +125,17 @@ class _CourseListPageState extends State<CourseListPage> {
                 final courseId = course['course_code'];
                 final courseName = course['course_name'];
                 final facultyName = course['faculty'];
-                final total = 0;
-                final present = 0;
-                final absent = 0;
+                final total = getTotalNumberOfDays(attendancedata, course['course_code']);
+                final present = getNumberOfDaysWithStudStatus1(attendancedata, course['course_code'],"1");
+                final absent = getNumberOfDaysWithStudStatus1(attendancedata, course['course_code'],"0");
                 final noClass = 0;
                 final provisionalApprovedLeave = 0;
-                final presentPercentage = 0.0;
-                final absentPercentage = 0.0;
+                final presentPercentage = total != 0.0 ? (present / total * 100) : 0.0;
+                final absentPercentage = total != 0.0 ? (absent / total * 100) : 0.0;
                 final approvedLeavePercentage = 0;
-                final overallPercentage = 95;
+                final overallPercentage = total != 0 ? (present / total * 100).toInt() : 0;
+
+
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
