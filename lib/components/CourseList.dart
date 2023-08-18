@@ -74,7 +74,7 @@ class _CourseListPageState extends State<CourseListPage> {
       course['present']=getNumberOfDaysWithStudStatus1(attendancedata, course['course_code'],"1");
       course['absent']=getNumberOfDaysWithStudStatus1(attendancedata, course['course_code'],"0");
       double overallPercentage = course['total'] != 0 ? (course['present']/ course['total'] * 100) : 0;
-      if (overallPercentage < threshold) {
+      if (!course['course_code'].startsWith('noc') && overallPercentage < threshold) {
         belowThresholdCount++;
       }
     }
