@@ -19,41 +19,52 @@ class HeatMapCalendarExample extends StatefulWidget {
 class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController heatLevelController = TextEditingController();
+  List<Map<String, dynamic>> attendancedata = [];
+
 
   bool isOpacityMode = true;
+  Future<void> fetchAttendanceData() async {
+    List<Map<String, dynamic>>? newData = await getDataValueFromSecureStorage("data");
+    if (newData != null) {
+      setState(() {
+        attendancedata = newData;
+        print("got attendancedata");
+        print(newData);
+
+        // Call the function to update the heatMapDatasets
+        updateHeatMapDatasets(attendancedata);
+      });
+    }
+  }
 
   Map<DateTime, int> heatMapDatasets = {
-    DateTime(2023, 07, 11): 8,
-    DateTime(2023, 07, 10): 0,
-    DateTime(2023, 07, 9): 0,
-    DateTime(2023, 07, 8): 1,
-    DateTime(2023, 07, 7): 3,
-    DateTime(2023, 07, 6): 1,
-    DateTime(2023, 07, 5): 10,
-    DateTime(2023, 07, 4): 0,
-    DateTime(2023, 6, 30): 2,
-    DateTime(2023, 6, 29): 5,
-    DateTime(2023, 6, 28): 3,
-    DateTime(2023, 6, 27): 0,
-    DateTime(2023, 6, 26): 7,
-    DateTime(2023, 6, 25): 1,
-    DateTime(2023, 6, 24): 4,
-    DateTime(2023, 6, 23): 6,
-    DateTime(2023, 6, 22): 0,
-    DateTime(2023, 6, 21): 9,
-    DateTime(2023, 6, 20): 0,
-    DateTime(2023, 6, 19): 2,
-    DateTime(2023, 6, 18): 8,
-    DateTime(2023, 6, 17): 3,
-    DateTime(2023, 6, 16): 0,
-    DateTime(2023, 6, 15): 1,
-    DateTime(2023, 6, 14): 7,
-    DateTime(2023, 6, 13): 5,
-    DateTime(2023, 6, 12): 0,
-    DateTime(2023, 6, 11): 4,
-    DateTime(2023, 6, 10): 6,
   };
+  void updateHeatMapDatasets(List<Map<String, dynamic>> attendanceData) {
+    // Clear the existing data
+    heatMapDatasets.clear();
 
+    // Loop through the attendance data and update the heatMapDatasets
+    for (var entry in attendanceData) {
+      // Parse the date from the 'AttDate' field in the format "yyyy-MM-dd"
+      DateTime date = DateTime.parse(entry['AttDate']);
+
+      // Check if the entry has studstatus equal to 0
+      if (entry['StudStatus'] == "0") {
+        // If the date already exists in heatMapDatasets, increment the count by 1
+        if (heatMapDatasets.containsKey(date)) {
+          heatMapDatasets[date] = heatMapDatasets[date]! + 1;
+        } else {
+          heatMapDatasets[date] = 1;
+        }
+      }
+
+    }
+  }
+
+  void initState() {
+    super.initState();
+    fetchAttendanceData();
+  }
   @override
   void dispose() {
     super.dispose();
