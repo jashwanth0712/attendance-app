@@ -21,8 +21,29 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController heatLevelController = TextEditingController();
   List<Map<String, dynamic>> attendancedata = [];
+  String roll_no="";
 
-
+  List<Map<String, dynamic>> holidaysDataFirstYear = [
+    // exams
+    {'Date': '2023-12-11', 'Value': 40},
+    {'Date': '2023-12-12', 'Value': 20},
+    {'Date': '2023-12-13', 'Value': 20},
+    {'Date': '2023-12-14', 'Value': 20},
+    {'Date': '2023-12-15', 'Value': 20},
+    {'Date': '2023-12-16', 'Value': 20},
+    // holidays
+    {'Date': '2023-08-15', 'Value': 15},
+    {'Date': '2023-09-07', 'Value': 15},
+    {'Date': '2023-09-19', 'Value': 15},
+    {'Date': '2023-09-23', 'Value': 15},
+    {'Date': '2023-10-02', 'Value': 15},
+    {'Date': '2023-10-23', 'Value': 15},
+    {'Date': '2023-10-24', 'Value': 15},
+    {'Date': '2023-11-13', 'Value': 15},
+    {'Date': '2023-11-27', 'Value': 15},
+    {'Date': '2023-12-25', 'Value': 9},
+    // Add more holiday entries here
+  ];
   bool isOpacityMode = true;
   String? storedLanguage="english";
   void initState() {
@@ -64,7 +85,7 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
     for (var entry in attendanceData) {
       // Parse the date from the 'AttDate' field in the format "yyyy-MM-dd"
       DateTime date = DateTime.parse(entry['AttDate']);
-
+      String roll_no=entry['RollNo'];
       // Check if the entry has studstatus equal to 0
       if (entry['StudStatus'] == "0") {
         // If the date already exists in heatMapDatasets, increment the count by 1
@@ -74,11 +95,23 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
           heatMapDatasets[date] = 1;
         }
       }
-
+      else{
+        if (!heatMapDatasets.containsKey(date)) {
+          heatMapDatasets[date] = 0;
+        }
+      }
     }
+    insertHolidays(holidaysDataFirstYear);
   }
 
-
+  void insertHolidays(List<Map<String, dynamic>> holidaysData) {
+    for (var entry in holidaysData) {
+      DateTime date = DateTime.parse(entry['Date']);
+      int value = entry['Value'];
+      heatMapDatasets[date] = 20;
+    }
+    print("final data is $heatMapDatasets");
+  }
   @override
   void dispose() {
     super.dispose();
@@ -172,17 +205,23 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                     child: HeatMapCalendar(
                       flexible: true,
                       datasets: heatMapDatasets,
-                      colorMode:
-                          isOpacityMode ? ColorMode.opacity : ColorMode.color,
+                      colorMode:ColorMode.color,
                       colorsets: const {
-                        1: Colors.red,
-                        3: Colors.orange,
-                        5: Colors.yellow,
-                        7: Colors.green,
-                        9: Colors.blue,
-                        11: Colors.indigo,
-                        13: Colors.purple,
+                        0: Colors.green,
+                        1: Color(0xFFFFE5E5),   // Very light red
+                        2: Color(0xFFFFB2B2),   // Lighter red
+                        3: Color(0xFFFF8080),   // Light red
+                        4: Color(0xFFFF4D4D),   // Standard red
+                        5: Colors.red,          // Red
+                        6: Color(0xFFE60000),   // Dark red
+                        7: Color(0xFFCC0000),   // Darker red
+                        8: Color(0xFFB20000),   // Very dark red
+                        9: Color(0xFF990000),   // Very dark red
+                        10: Color(0xFF800000),  // Very dark red
+                        15: Colors.orangeAccent,
+                        30: Color(0xFF0E62E5),
                       },
+                      textColor: Colors.black,
                       onClick: (value) {
                         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.toString())));
                         Navigator.push(
@@ -207,9 +246,10 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      _buildLegendItem(Colors.white, 'Complete Present'),
+                      _buildLegendItem(Colors.green, 'Complete Present'),
                       _buildLegendItem(Colors.red[100]!, 'Partial Absent'),
                       _buildLegendItem(Colors.redAccent, 'Complete Absent'),
+                      _buildLegendItem(Colors.orangeAccent, 'Holidays / Exams'),
                       SizedBox(height: 8),
                       Wrap( // Wrap widget here
                         alignment: WrapAlignment.center,
