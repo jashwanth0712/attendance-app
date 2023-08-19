@@ -43,10 +43,12 @@ class _CourseCardState extends State<CourseCard> {
   Widget build(BuildContext context) {
     Color attendanceColor =
     widget.overallPercentage < 85 ? Colors.red : Colors.green;
+    bool isNPTEL = widget.courseId.startsWith("noc");
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        if (!isNPTEL)
+          Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => CourseDetailsPage(
@@ -72,7 +74,24 @@ class _CourseCardState extends State<CourseCard> {
           padding: const EdgeInsets.all(6.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              isNPTEL
+                  ? Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'NPTEL',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
+                  : SizedBox(), // No tag if not an NPTEL course
               Text(
                 widget.courseName.length > 40 ? '${widget.courseName.substring(0, 40)}...' : widget.courseName,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -81,12 +100,10 @@ class _CourseCardState extends State<CourseCard> {
               ),
 
 
-              SizedBox(height: 8),
               Text(
                 'by: ${widget.facultyName.length > 23 ? '${widget.facultyName.substring(0, 3)}..${widget.facultyName.substring(widget.facultyName.length - 3)}' : widget.facultyName}',
               ),
-              SizedBox(height: 8),
-              Row(
+              isNPTEL?Container():Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
@@ -101,7 +118,6 @@ class _CourseCardState extends State<CourseCard> {
 
                 ],
               ),
-              SizedBox(height: 8),
               Text(
                 'Course ID: ${widget.courseId.length > 9 ? '${widget.courseId.substring(0, 3)}..${widget.courseId.substring(widget.courseId.length - 3)}' : widget.courseId}',
                 style: TextStyle(
