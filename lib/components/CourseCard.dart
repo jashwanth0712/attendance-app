@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../course_list_page.dart';
+import '../Pages/course_list_page.dart';
 
 class CourseCard extends StatefulWidget {
   final int serialNumber;

@@ -5,7 +5,7 @@ import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'dart:developer';
 import '../components/CourseList.dart';
 import '../constants/TranslationConstants.dart';
-import '../course_list_page.dart';
+import 'course_list_page.dart';
 import "package:attandance_viewer/Pages/DateWiseAttendanceTable.dart";
 import 'package:attandance_viewer/utils/secure_storage_utils.dart';
 import '../AttendanceTablePage.dart';

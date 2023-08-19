@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:attandance_viewer/utils/secure_storage_utils.dart';
 import 'package:intl/intl.dart';
-import 'AttendanceTablePage.dart';
-import 'components/CourseCard.dart';
+import '../AttendanceTablePage.dart';
+import '../components/CourseCard.dart';
+import '../constants/TranslationConstants.dart';
 
-class CourseDetailsPage extends StatelessWidget {
+class CourseDetailsPage extends StatefulWidget {
   final int serialNumber;
   final String courseId;
   final String courseName;
@@ -36,12 +37,66 @@ class CourseDetailsPage extends StatelessWidget {
   });
 
   @override
+  State<CourseDetailsPage> createState() => _CourseDetailsPageState();
+}
+
+class _CourseDetailsPageState extends State<CourseDetailsPage> {
+  String? storedLanguage="english";
+
+  void initState() {
+    super.initState();
+    _checkAndSetDefaultLanguage();
+  }
+
+  Future<void> _checkAndSetDefaultLanguage() async {
+    storedLanguage = await getValueFromSecureStorage("language");
+    print("recieved $storedLanguage");
+    if (storedLanguage == null) {
+      setValueInSecureStorage("language", "english");
+      print("language is english");
+    }
+  }
+
+  void _showLanguageSnackbar(String language) {
+    setValueInSecureStorage("language", language);
+    print("the stored data is $storedLanguage");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Selected language: $language'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _selectLanguage(String language) {
+    // Set logic here to handle language selection.
+    _showLanguageSnackbar(language);
+    setState(() {
+      storedLanguage=language;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(
       actions: [
         Padding(
           padding: EdgeInsets.only(right: 8.0),
           child: Image.asset('images/college_logo.png'), // Replace 'assets/college_logo.png' with your image path
+        ),
+        PopupMenuButton(
+          onSelected: _selectLanguage,
+          itemBuilder: (BuildContext context) {
+            return [
+              PopupMenuItem(value: 'english', child: Text('English')),
+              PopupMenuItem(value: 'hindi', child: Text('हिन्दी')),
+              PopupMenuItem(value: 'tamil', child: Text('தமிழ்')),
+              PopupMenuItem(value: 'telugu', child: Text('తెలుగు')),
+              PopupMenuItem(value: 'malayalam', child: Text('മലയാളം')),
+              PopupMenuItem(value: 'kannada', child: Text('ಕನ್ನಡ')),
+              PopupMenuItem(value: 'marathi', child: Text('मराठी')),
+            ];
+          },
         ),
       ],
     ),
@@ -59,30 +114,30 @@ class CourseDetailsPage extends StatelessWidget {
                 TableRow(
                   children: [
                     TableCell(
-                      child: Text('Course ID:'),
+                      child: Text(TranslationConstants.translations["course_id"]![storedLanguage!]!,),
                     ),
                     TableCell(
-                      child: Text('$courseId'),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    TableCell(
-                      child: Text('Course Name:'),
-                    ),
-                    TableCell(
-                      child: Text('$courseName'),
+                      child: Text('${widget.courseId}'),
                     ),
                   ],
                 ),
                 TableRow(
                   children: [
                     TableCell(
-                      child: Text('Faculty Name:'),
+                      child: Text(TranslationConstants.translations["course_name"]![storedLanguage!]!,),
                     ),
                     TableCell(
-                      child: Text('$facultyName'),
+                      child: Text('${widget.courseName}'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text(TranslationConstants.translations["faculty_name"]![storedLanguage!]!,),
+                    ),
+                    TableCell(
+                      child: Text('${widget.facultyName}'),
                     ),
                   ],
                 ),
@@ -92,37 +147,37 @@ class CourseDetailsPage extends StatelessWidget {
                       child: Text('Total:'),
                     ),
                     TableCell(
-                      child: Text('$total'),
+                      child: Text('${widget.total}'),
                     ),
                   ],
                 ),
                 TableRow(
                   children: [
                     TableCell(
-                      child: Text('Present:'),
+                      child: Text(TranslationConstants.translations["number_of_present"]![storedLanguage!]!,),
                     ),
                     TableCell(
-                      child: Text('$present'),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    TableCell(
-                      child: Text('Absent:'),
-                    ),
-                    TableCell(
-                      child: Text('$absent'),
+                      child: Text('${widget.present}'),
                     ),
                   ],
                 ),
                 TableRow(
                   children: [
                     TableCell(
-                      child: Text('No Class:'),
+                      child: Text(TranslationConstants.translations["number_of_absents"]![storedLanguage!]!),
                     ),
                     TableCell(
-                      child: Text('$noClass'),
+                      child: Text('${widget.absent}'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text(TranslationConstants.translations["days_with_no_class"]![storedLanguage!]!),
+                    ),
+                    TableCell(
+                      child: Text('${widget.noClass}'),
                     ),
                   ],
                 ),
@@ -132,47 +187,47 @@ class CourseDetailsPage extends StatelessWidget {
                       child: Text('Provisional Approved Leave*:'),
                     ),
                     TableCell(
-                      child: Text('$provisionalApprovedLeave'),
+                      child: Text('${widget.provisionalApprovedLeave}'),
                     ),
                   ],
                 ),
                 TableRow(
                   children: [
                     TableCell(
-                      child: Text('Present Percentage:'),
+                      child: Text(TranslationConstants.translations["present_percentage"]![storedLanguage!]!),
                     ),
                     TableCell(
-                      child: Text('$presentPercentage%'),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    TableCell(
-                      child: Text('Absent Percentage:'),
-                    ),
-                    TableCell(
-                      child: Text('$absentPercentage%'),
+                      child: Text('${widget.presentPercentage}%'),
                     ),
                   ],
                 ),
                 TableRow(
                   children: [
                     TableCell(
-                      child: Text('Approved Leave Percentage*:'),
+                      child: Text(TranslationConstants.translations["absent_percentage"]![storedLanguage!]!),
                     ),
                     TableCell(
-                      child: Text('$approvedLeavePercentage%'),
+                      child: Text('${widget.absentPercentage}%'),
                     ),
                   ],
                 ),
                 TableRow(
                   children: [
                     TableCell(
-                      child: Text('Overall Percentage:'),
+                      child: Text(TranslationConstants.translations["approved_leave_percentage"]![storedLanguage!]!),
                     ),
                     TableCell(
-                      child: Text('$overallPercentage%'),
+                      child: Text('${widget.approvedLeavePercentage}%'),
+                    ),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    TableCell(
+                      child: Text(TranslationConstants.translations["overall_percentage"]![storedLanguage!]!),
+                    ),
+                    TableCell(
+                      child: Text('${widget.overallPercentage}%'),
                     ),
                   ],
                 ),
@@ -184,7 +239,7 @@ class CourseDetailsPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AttendanceTablePage(courseId: courseId,context: context),
+                    builder: (context) => AttendanceTablePage(courseId: widget.courseId,context: context),
                   ),
                 );
               },
