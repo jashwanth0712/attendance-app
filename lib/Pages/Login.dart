@@ -242,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
           : Center(child: Column(
             children: [
               CircularProgressIndicator(),
-              Container(child: Text(storedLanguage!),)
+              Container(child: Text(storedLanguage ?? ''),)
             ],
           )),
     );

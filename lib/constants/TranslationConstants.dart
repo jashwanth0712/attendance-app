@@ -11,7 +11,7 @@ class TranslationConstants {
     },
     "roll_number": {
       "english": "roll number",
-      "telugu": "రోల్ సంఖ్య",
+      "telugu": "రోల్ నెం",
       "malayalam": "റോൾ നമ്പർ",
       "tamil": "ரோல் எண்",
       "hindi": "रोल नंबर",
@@ -29,7 +29,7 @@ class TranslationConstants {
     },
     "parent": {
       "english": "parent",
-      "telugu": "తల్లిదండ్రు",
+      "telugu": "తల్లిదండ్రులు",
       "malayalam": "പിതാവ്",
       "tamil": "அம்மா",
       "hindi": "माता-पिता",
@@ -74,7 +74,7 @@ class TranslationConstants {
     },
     "subject_wise_attendance": {
       "english": "Subject Wise Attendance",
-      "telugu": "విషయం ప్రతిస్థాన హాజరాయిత్తు",
+      "telugu": "సబ్జెక్ట్ వారీగా హాజరు",
       "malayalam": "വിഷയ പ്രതിസ്ഥാന ഹാജരായിത്ത്",
       "tamil": "பாடத்தின் பிரிவுப் பரிசீலனை",
       "hindi": "विषयवार हाजिरी",
@@ -83,7 +83,7 @@ class TranslationConstants {
     },
     "subjects_with_attendance_below_88": {
       "english": "Subjects with attendance below 88%",
-      "telugu": "88% కంటే కమ్మిటీపై పాఠాలు",
+      "telugu": "88% కంటే తక్కువ హాజరు ఉన్న సబ్జెక్టులు",
       "malayalam": "88% ക്കിടെ ഹാജരായിത്ത് അടിമയായ വിഷയങ്ങൾ",
       "tamil": "88% க்கு கீழ் பாடங்கள்",
       "hindi": "88% से कम हाजिरी वाले विषय",
@@ -132,7 +132,7 @@ class TranslationConstants {
 
     "approved_leave_percentage": {
       "english": "Approved Leave Percentage*:",
-      "telugu": "ఆమోదించిన అవకాశ శాతం*:",
+      "telugu": "ఆమోదించబడిన సెలవు శాతం*:",
       "malayalam": "അനുമതി ലഭിച്ച അവകാശ ശതമാന*:",
       "tamil": "அங்கீகரிக்கப்பட்ட அனுமதி சதாந்திரம்*:",
       "hindi": "मंजूर की गई अवकाश प्रतिशत*:",
@@ -142,7 +142,7 @@ class TranslationConstants {
 
     "absent_percentage": {
       "english": "Absent Percentage:",
-      "telugu": "అనుపస్థితి శాతం:",
+      "telugu": "హాజరుకాని శాతం:",
       "malayalam": "അനുപസ്ഥിതി ശതമാനം:",
       "tamil": "விலக்கு சதாந்திரம்:",
       "hindi": "अनुपस्थिति प्रतिशत:",

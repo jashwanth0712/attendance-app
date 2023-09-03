@@ -7,8 +7,13 @@ import 'Pages/parents_view.dart';
 import 'Pages/Login.dart';
 import 'Pages/course_list_page.dart';
 import 'utils/secure_storage_utils.dart';
+import 'package:flutter/services.dart';
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -56,7 +61,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'IIITDM kancheepuram',
       theme: ThemeData(
         primaryColor: Color(0xFF285190), // Set primary color to #285190
         primarySwatch: MaterialColor(0xFF285190, {
