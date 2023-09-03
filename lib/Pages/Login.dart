@@ -4,6 +4,7 @@ import 'package:attandance_viewer/Pages/parents_view.dart';
 import 'package:attandance_viewer/constants/ThemeData.dart';
 import 'package:attandance_viewer/utils/secure_storage_utils.dart';
 import '../constants/TranslationConstants.dart';
+import 'dart:async';
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -18,17 +19,24 @@ class _LoginPageState extends State<LoginPage> {
   String? storedLanguage="english";
   void initState() {
     super.initState();
+    setValueInSecureStorage("language", "english");
     _checkAndSetDefaultLanguage();
+
   }
 
-  Future<void> _checkAndSetDefaultLanguage() async {
-     storedLanguage = await getValueFromSecureStorage("language");
-     print("recieved $storedLanguage");
-    if (storedLanguage == null) {
-      setValueInSecureStorage("language", "english");
-      print("language is english");
+  Future<void> _checkAndSetDefaultLanguage({String defaultValue = "english"}) async {
+    try {
+      storedLanguage = await getValueFromSecureStorage("language");
+      print("received $storedLanguage");
+      if (storedLanguage == null) {
+        await setValueInSecureStorage("language", defaultValue);
+        print("language is set to $defaultValue");
+      }
+    } catch (e) {
+      print("Error:ssssssss $e");
     }
   }
+
 
   void selectParent() {
     setState(() {
@@ -83,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
         MaterialPageRoute(builder: (context) => HeatMapCalendarExample()),
       );
     }
+
   }
 
   void _showLanguageSnackbar(String language) {
@@ -267,3 +276,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+

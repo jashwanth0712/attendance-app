@@ -3,7 +3,7 @@ class TranslationConstants {
     "username": {
       "english": "username",
       "telugu": "రోల్ నెం",
-      "malayalam": "ഉപയോക്തൃനാമം",
+      "malayalam": "ക്രമസംഖ്യ",
       "tamil": "பயனர்பெயர்",
       "hindi": "उपयोगकर्ता नाम",
       "marathi": "वापरकर्तानाव",
@@ -12,7 +12,7 @@ class TranslationConstants {
     "roll_number": {
       "english": "roll number",
       "telugu": "రోల్ నెం",
-      "malayalam": "റോൾ നമ്പർ",
+      "malayalam": "ക്രമസംഖ്യ",
       "tamil": "ரோல் எண்",
       "hindi": "रोल नंबर",
       "marathi": "रोल नंबर",
@@ -21,7 +21,7 @@ class TranslationConstants {
     "password": {
       "english": "password",
       "telugu": "పాస్వర్డ్",
-      "malayalam": "പാസ്‌വേഡ്",
+      "malayalam": "പാസ് വർഡ്",
       "tamil": "கடவுச்சொல்",
       "hindi": "पासवर्ड",
       "marathi": "संकेतशब्द",
@@ -30,7 +30,7 @@ class TranslationConstants {
     "parent": {
       "english": "parent",
       "telugu": "తల్లిదండ్రులు",
-      "malayalam": "പിതാവ്",
+      "malayalam": "രക്ഷാകര്‍ത്താവ്‌",
       "tamil": "அம்மா",
       "hindi": "माता-पिता",
       "marathi": "आई-वडील",
@@ -66,7 +66,7 @@ class TranslationConstants {
     "click_a_date_to_view_attendance": {
       "english": "Click a date to view attendance details",
       "telugu": "హాజరాయిత్తు వివరాలను చూడడానికి తేదీని క్లిక్ చేయండి",
-      "malayalam": "ഹാജരായിത്ത് വിശദാംശങ്ങൾ കാണാൻ ദിവസത്തിന് ക്ലിക്ക് ചെയ്യുക",
+      "malayalam": "ഹാജർ വിശദാംശങ്ങൾക്കായി ഏതെങ്കിലും ഡേറ്റിൽ തൊടുക",
       "tamil": "ஹாஜரிக்க விவரங்களைப் பார்க்க ஒரு தேதியை கிளிக் செய்யவும்",
       "hindi": "हाजिरी विवरण देखने के लिए एक तारीख पर क्लिक करें",
       "marathi": "हजर तपशिलांसाठी दिनांकावर क्लिक करा",
@@ -75,7 +75,7 @@ class TranslationConstants {
     "subject_wise_attendance": {
       "english": "Subject Wise Attendance",
       "telugu": "సబ్జెక్ట్ వారీగా హాజరు",
-      "malayalam": "വിഷയ പ്രതിസ്ഥാന ഹാജരായിത്ത്",
+      "malayalam": "സബ്ജെക്റ്റുകളുടെ ഹാജർ വിശദാംശങ്ങൾ",
       "tamil": "பாடத்தின் பிரிவுப் பரிசீலனை",
       "hindi": "विषयवार हाजिरी",
       "marathi": "विषयआधारित हजर तपशिल",
@@ -84,7 +84,7 @@ class TranslationConstants {
     "subjects_with_attendance_below_88": {
       "english": "Subjects with attendance below 88%",
       "telugu": "88% కంటే తక్కువ హాజరు ఉన్న సబ్జెక్టులు",
-      "malayalam": "88% ക്കിടെ ഹാജരായിത്ത് അടിമയായ വിഷയങ്ങൾ",
+      "malayalam": "88% ത്തിന്റെ താഴെ ഹാജറായ സബ്ജെക്റ്റുകൾ",
       "tamil": "88% க்கு கீழ் பாடங்கள்",
       "hindi": "88% से कम हाजिरी वाले विषय",
       "marathi": "88% पेक्षा कमी हजर असलेले विषय",
@@ -93,7 +93,7 @@ class TranslationConstants {
     "course_name": {
       "english": "Course Name:",
       "telugu": "కోర్స్ పేరు:",
-      "malayalam": "കോഴ്സ് പേരു:",
+      "malayalam": "കോഴ്സിന്റെ പേര്:",
       "tamil": "பாடக்கோப்பு பெயர்:",
       "hindi": "कोर्स का नाम:",
       "marathi": "कोर्सचे नाव:",
@@ -103,7 +103,7 @@ class TranslationConstants {
     "faculty_name": {
       "english": "Faculty Name:",
       "telugu": "ఫ్యాకల్టీ పేరు:",
-      "malayalam": "ഫാക്കൾട്ടി പേരു:",
+      "malayalam": "അധ്യാപകന്റെ പേര്:",
       "tamil": "கல்வி பெயர்:",
       "hindi": "फैकल्टी का नाम:",
       "marathi": "शिक्षकाचे नाव:",
@@ -123,7 +123,7 @@ class TranslationConstants {
     "overall_percentage": {
       "english": "Overall Percentage:",
       "telugu": "మొత్తం శాతం:",
-      "malayalam": "മൊത്തം ശതമാനം:",
+      "malayalam": "ആകെയുള്ള ശതമാനം:",
       "tamil": "மொத்த சதாந்திரம்:",
       "hindi": "कुल प्रतिशत:",
       "marathi": "एकूण प्रतिशत:",
@@ -133,7 +133,7 @@ class TranslationConstants {
     "approved_leave_percentage": {
       "english": "Approved Leave Percentage*:",
       "telugu": "ఆమోదించబడిన సెలవు శాతం*:",
-      "malayalam": "അനുമതി ലഭിച്ച അവകാശ ശതമാന*:",
+      "malayalam": "അനുമതി ലഭിച്ച അവധി ശതമാനം*:",
       "tamil": "அங்கீகரிக்கப்பட்ட அனுமதி சதாந்திரம்*:",
       "hindi": "मंजूर की गई अवकाश प्रतिशत*:",
       "marathi": "मंजूर आलेली अवकाश प्रतिशत*:",
@@ -143,7 +143,7 @@ class TranslationConstants {
     "absent_percentage": {
       "english": "Absent Percentage:",
       "telugu": "హాజరుకాని శాతం:",
-      "malayalam": "അനുപസ്ഥിതി ശതമാനം:",
+      "malayalam": "അവധി ശതമാനം:",
       "tamil": "விலக்கு சதாந்திரம்:",
       "hindi": "अनुपस्थिति प्रतिशत:",
       "marathi": "गैरहाजर प्रतिशत:",
@@ -153,7 +153,7 @@ class TranslationConstants {
     "present_percentage": {
       "english": "Present Percentage:",
       "telugu": "ఉపస్థితి శాతం:",
-      "malayalam": "ഹാജരായിത്ത് ശതമാനം:",
+      "malayalam": "ഹാജർ ശതമാനം:",
       "tamil": "உபஸ்திதி சதாந்திரம்:",
       "hindi": "हाजिरी प्रतिशत:",
       "marathi": "हजर प्रतिशत:",
@@ -173,7 +173,7 @@ class TranslationConstants {
     "number_of_absents": {
       "english": "Number of Absents:",
       "telugu": "అనుపస్థితి సంఖ్య:",
-      "malayalam": "അനുപസ്ഥിതി എണ്ണം:",
+      "malayalam": "അവധികളുടെ എണ്ണം:",
       "tamil": "விலக்கு எண்ணிக்கை:",
       "hindi": "अनुपस्थिति संख्या:",
       "marathi": "गैरहाजिरीची संख्या:",
@@ -183,7 +183,7 @@ class TranslationConstants {
     "number_of_present": {
       "english": "Number of Present:",
       "telugu": "ఉపస్థితి సంఖ్య:",
-      "malayalam": "ഹാജരായിത്ത് എണ്ണം:",
+      "malayalam": "ഹാജറായ ദിവസങ്ങളുടെ എണ്ണം:",
       "tamil": "உபஸ்திதி எண்ணிக்கை:",
       "hindi": "हाजिरी संख्या:",
       "marathi": "हजरीची संख्या:",
